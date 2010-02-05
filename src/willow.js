@@ -6,18 +6,23 @@ if(typeof window.willowConfig === "undefined"){
 }
 (function willow(){
     if(typeof window.console === "undefined"){
-        window.console = {};
-        console.log = function log(){};
-        console.error = function error(){};
-        console.warn = function warn(){};
-    }
+        window.willow = {
+            log: function(){},
+            warn: function(){},
+            error: function(){},
+            enter: function(){},
+            exit: function(){},
+            autoTrace: function(){}
+        };
+        return;
+    } 
     
     /* Rename/copy the log/error/warning functions. so we can overwrite them 
      * later, if need be.
      */
-    console.willow_log = console.log;
-    console.willow_error = console.error;
-    console.willow_warn = console.warn;
+    window.console.willow_log = console.log;
+    window.console.willow_error = console.error;
+    window.console.willow_warn = console.warn;
     
     /* Meta function determination stuff.
      */
@@ -41,7 +46,7 @@ if(typeof window.willowConfig === "undefined"){
         return [fn_name, fn_args, args];
     }
     
-    function buildTemplateArray(info){
+    var buildTemplateArray = function buildTemplateArray(info){
         return [info[0], "("].concat(info[1]).concat(["):"]).concat(info[2]);
     }
     

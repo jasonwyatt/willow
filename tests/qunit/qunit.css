@@ -74,10 +74,10 @@ h2#qunit-banner{
 	margin:0;
 	padding:0;
 }
-h2#qunit-banner.qunit-pass{
+h2#qunit-banner.qunit-pass, h2.other-banner.qunit-pass{
 	background-color:#C6E746;
 }
-h2#qunit-banner.qunit-fail, #qunit-testrunner-toolbar {
+h2#qunit-banner.qunit-fail, #qunit-testrunner-toolbar, h2.other-banner.qunit-pass {
 	background-color:#EE5757;
 }
 #qunit-testrunner-toolbar {
@@ -87,7 +87,7 @@ h2#qunit-banner.qunit-fail, #qunit-testrunner-toolbar {
 	padding:0em 0 0.5em 2em;
 	font-size: small;
 }
-h2#qunit-userAgent {
+h2#qunit-userAgent,h2.other-banner {
 	font-family:"Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
 	background-color:#2b81af;
 	margin:0;

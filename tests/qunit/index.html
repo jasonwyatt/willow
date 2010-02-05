@@ -9,28 +9,42 @@
     <script type="text/javascript" src="../../src/willow.js"></script>  
     
     <script type="text/javascript">  
-        function divide(a, b){
-            return a/b;
-        }
-        
         $(document).ready(function(){  
-            module("Basic Unit Test");  
-            test("Sample test", function() {  
-                expect(1); 
-                expect(0); 
-                equals(
-                    divide(4,2),  
-                    2,  
-                    'Expected 2 as the result, result was: ' + divide(4,2)
-                );  
-            });  
+            var functions = ['log','warn','error','enter','exit'];
+            
+            module("Exception-Free"); 
+            for(var i = 0, len = functions.length; i < len; i++){
+                var fn = functions[i];
+                test(
+                    "willow."+fn+"('test')", 
+                    3,
+                    function(){
+                        (function exceptionTest() { 
+                            ok(!willow[fn]('test'), "Named function should be ok.");  
+                        })();
+                        
+                        (function(){
+                            ok(!willow[fn]("test"), "Unnamed functions should also be ok.");
+                        })();
+                        
+                        (function(){
+                            function testFunc(){
+                                return willow[fn]("this","is",{a: "test"});
+                            }
+                            ok(!testFunc(1,"testarg"), "Complicated arguments for logging should be ok.");
+                        })();
+                    }
+                );
+            }; 
         }); 
     </script>  
   </head>  
   <body>  
     <h1 id="qunit-header">willow unit tests</h1>  
-    <h2 id="qunit-banner"></h2>  
-    <h2 id="qunit-userAgent"></h2>  
+    <h2 id="qunit-banner"></h2>   
+    <h2 class="other-banner"></h2>
+    <h2 id="qunit-userAgent"></h2>
+    <h2 class="other-banner"></h2> 
     <ol id="qunit-tests">  
     </ol>  
   </body>  
