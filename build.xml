@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="willow" basedir="." default="clean-and-build">
+    <!-- Taskdef for jsmin -->
+    <taskdef name="jsmin" classname="net.matthaynes.jsmin.JSMin_Task" classpath="./tools/jsmin.0.2.4.jar"/>
+    <loadproperties srcFile="build.props"/>
+    <loadfile property="copyright" srcFile="${basedir}/LICENSE"/>
+    
+    <echo>====================================================================
+    Project:        	${ant.project.name}
+    Version:        	${version}
+    Base Directory: 	${basedir}
+====================================================================</echo>
+    
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+    
+    <target name="build">
+        <mkdir dir="build" />
+		<concat destfile="${build.dir}/willow.${version}.js" fixlastline="true" force="yes">
+			<string value="/*${copyright}*/" />
+			<filelist dir="${basedir}/src" files="${ant.project.name}.js"/>
+		</concat>
+    </target>
+    
+    <target name="build-all" depends="build">
+    	<jsmin destdir="${build.dir}" srcfile="${build.dir}/${ant.project.name}.${version}.js" suffix="true" copyright="${copyright}" />
+    </target>
+    
+    <target name="clean-and-build" depends="clean,build-all"/>
+</project>

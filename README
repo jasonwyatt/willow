@@ -1,0 +1,26 @@
+About:
+    Willow is a 'magical' logging tool for JavaScript.  It provides extra 
+    information to the console about the function within which a logging event 
+    is created:
+        1) Function name*
+           * Only for functions that are Named functions.  See 
+             http://www.permadi.com/tutorial/jsFunc/index.html 
+             for more details.
+        2) Function's arguments
+
+To build willow:
+    Prerequsites:
+        Apache Ant (1.6.5 or greater)
+    
+    Instructions:
+        1) Open a console/terminal to the base directory.
+        2) Enter the following Command
+             ant
+        3) Profit :)
+        
+    Deliverables:
+        1) ./build/willow.[version].js
+            Uncompressed version of willow.
+        2) ./build/willow.[version].min.js
+            Minified version of willow.
+        
