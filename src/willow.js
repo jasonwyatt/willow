@@ -5,24 +5,27 @@ if(typeof window.willowConfig === "undefined"){
     };
 }
 (function willow(){
+    window.willow = {
+        log: function(){},
+        warn: function(){},
+        error: function(){},
+        enter: function(){},
+        exit: function(){},
+        autoTrace: function(){}
+    };
     if(typeof window.console === "undefined"){
-        window.willow = {
-            log: function(){},
-            warn: function(){},
-            error: function(){},
-            enter: function(){},
-            exit: function(){},
-            autoTrace: function(){}
-        };
         return;
-    } 
+    } else if(navigator.vendor === "Google Inc." || navigator.vendor === "Apple Computer, Inc."){
+        // it'd be cool to figure out a way to get it to work on chrome and safari.
+        return; 
+    }
     
     /* Rename/copy the log/error/warning functions. so we can overwrite them 
      * later, if need be.
      */
-    window.console.willow_log = console.log;
-    window.console.willow_error = console.error;
-    window.console.willow_warn = console.warn;
+    var console_log = console.log;
+    var console_error = console.error != null ? console.error : console.log;
+    var console_warn = console.warn != null ? console.warn : console.log;
     
     /* Meta function determination stuff.
      */
@@ -35,6 +38,7 @@ if(typeof window.willowConfig === "undefined"){
      */
     function getInfo(){
         var fn_name = arguments.callee.caller.caller.name;
+        
         var args = Array.prototype.slice.call(arguments.callee.caller.arguments);
         var fn_args = Array.prototype.slice.call(arguments.callee.caller.caller.arguments);
         
@@ -56,21 +60,21 @@ if(typeof window.willowConfig === "undefined"){
                 return;
             }
             var info = getInfo();
-            console.willow_log.apply(null, buildTemplateArray(info));
+            console_log.apply(null, buildTemplateArray(info));
         },
         error: function willow_error(){
             if(willowConfig.enabled !== true){
                 return;
             }
             var info = getInfo();
-            console.willow_error.apply(null, buildTemplateArray(info));
+            console_error.apply(null, buildTemplateArray(info));
         },
         warn: function willow_warn(){
             if(willowConfig.enabled !== true){
                 return;
             }
             var info = getInfo();
-            console.willow_warn.apply(null, buildTemplateArray(info));
+            console_warn.apply(null, buildTemplateArray(info));
         },
         enter: function willow_enter(){
             window.willow.log("Entered.");
