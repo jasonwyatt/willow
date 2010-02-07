@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Willow Examples</title>
+        <script type="text/javascript" src="../../src/willow.js" charset="utf-8"></script> 
+        <script type="text/javascript">
+            function myFunction(){
+                willow.enter();
+                
+                console.log("Something important.");
+                
+                willow.exit();
+            }
+            
+            var mySecondFunction = function(){
+                willow.enter();
+                
+                console.log("Something else important.");
+                
+                willow.exit();
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Willow Examples</h1>
+        <p>This site contains several examples of how willow can be used to help JavaScript developers trace and log their code.</p>
+        <ul>
+            <li><a href="./sqrt.html" title="Square Root Example">Square Root</a> - Logging with arguments and function names.</li>
+            <li><a href="./oops.html" title="Oops Example">Oops</a> - Logging errors and warnings.</li>
+            <li><a href="./inline.html" title="Inline Example">Inline</a> - Playing with DOM events.</li>
+        </ul>
+        <h2>Note:</h2>
+        <p>It's important to remember that willow can only provide function names in its logging capabilities if you explicitly "name" your functions.  A named function looks like this:</p>
+        <img src="./img/namedExample.png" style="float:right"/>
+        <pre><code>function <span class="highlight">myFunction</span>(){
+    willow.enter();
+    
+    console.log("Something important.");
+    
+    willow.exit();
+}</code></pre>
+        <p>Unnamed functions, however, are missing the key part - the name (e.g. <span class="highlight">myFunction</span>) - and are usually assigned to some variable.  For example:</p>
+        <img src="./img/unnamedExample.png" style="float:right"/>
+        <pre><code>var mySecondFunction = function(){
+    willow.enter();
+    
+    console.log("Something else important.");
+    
+    willow.exit();
+}</code></pre>
+        <p>Notice how the output in Firefox's console differs between the two versions.</p>
+    </body>
+</html>

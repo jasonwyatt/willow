@@ -1,0 +1,31 @@
+.right_column {
+    float: right;
+    width: 400px;
+}
+
+.left_column {
+    margin-right: 400px;
+}
+pre.left_column{
+    overflow-x: auto;
+    padding: 5px;
+}
+
+form.right_column {
+}
+
+form label {
+    display: block;
+    float: left;
+    text-indent: -9000px;
+}
+
+#testForm img {
+    margin: 5px auto;
+    display: block;
+}
+
+
+.line_of_code{
+    display: block;
+}

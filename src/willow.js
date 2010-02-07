@@ -31,7 +31,7 @@ if(typeof window.willowConfig === "undefined"){
      */
     var meta_fns = ["willow_enter","willow_exit"].join("??");
     function memberOfMetaFns(name){
-        return meta_fns.indexOf(name) > -1;
+        return meta_fns.indexOf(name) > -1 && name !== "";
     }
     
     /* Common worker function, to get the args, function name, and function args.
@@ -80,7 +80,13 @@ if(typeof window.willowConfig === "undefined"){
             window.willow.log("Entered.");
         },
         exit: function willow_exit(){
-            window.willow.log("Exited.");
+            var returnValue = arguments[0];
+            
+            if(typeof returnValue !== "undefined"){
+                window.willow.log("Exited with value: ", arguments[0]);
+            } else {
+                window.willow.log("Exited.");
+            }
         },
         autoTrace: function autoTrace(object){
             // not done yet.

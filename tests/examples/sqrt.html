@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Square Root Example</title>
+        <link href="./styles/base.css" type="text/css" rel="stylesheet" media="all"/>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"> </script>  
+        
+        <script type="text/javascript" src="../../src/willow.js" charset="utf-8"></script> 
+        <script type="text/javascript">
+            function sqrt(num, accuracy){
+                willow.enter();
+                
+                if(typeof accuracy === "undefined"){
+                    accuracy = 0.01;
+                    console.log("Accuracy parameter was unset, auto-set to default: ", accuracy);
+                }
+                
+                var result = num / 2.0;
+                var result2 = result*result;
+                while(Math.abs(result2 - num) > accuracy){
+                    console.log("Result: ",result,", Result^2: ",result2,", Target: ",num," Accuracy: ",accuracy);
+
+                    result = (result + num/result) / 2.0;
+                    result2 = result*result;
+                }
+                
+                willow.exit(result);
+                return result;
+            }
+        </script>
+        
+        <script type="text/javascript">
+            var undefined; // make an undefined variable.
+            $(document).ready(function(){
+                $("#testForm").submit(function testForm_submit(e){
+                    e.preventDefault();
+                    
+                    var enabledValue = $('#enabler').val();
+                    var numValue = $('#num').val();
+                    var accuracyValue = $('#accuracy').val();
+                    
+                    var enabled = enabledValue === "true" ? true : false;
+                    var num = parseInt(numValue);
+                    var accuracy = accuracyValue === "undefined" ? undefined : parseInt(accuracyValue);
+                    
+                    willowConfig.enabled = enabled;
+                    if(typeof accuracy === "undefined"){
+                        sqrt(num);
+                    } else {
+                        sqrt(num, accuracy);
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Square Root Example</h1>
+        <p>In this example we wanted to describe a [semi-]realistic scenario where logging with willow could be useful to understand how a function is operating.  We've coded up the <a href="http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method" title="Article on the Babylonian Method at Wikipedia">babylonian method</a> for calculating a square root, and embedded three types of logging: <code class="highlight">enter</code>, <code class="highlight">exit</code>, and <code class="">log</code> (with the console object, rather than the equivalent alternative: <code>willow.log</code>).</p>
+        <h2>Code:</h2>
+        <form id="testForm" class="right_column">
+            <fieldset title="test">
+                <legend>Test it!</legend>
+                <p>Make sure you've got Firebug open to view the results shown in the image below.</p>
+                <label for="enabler">Enable/Disable Willow</label>
+                <span class="line_of_code"><code>willowConfig.enabled = </code><select id="enabler">
+                    <option selected="selected" value="true">true</option>
+                    <option value="false">false</option>
+                </select>;</span>
+                <label for="num">Function Call</label>
+                <span class="line_of_code">
+                    <code>sqrt(</code><input id="num" type="text" size="5" value="10"/><code>, </code><select id="accuracy">
+                    <option selected="selected" value="undefined">undefined</option>
+                    <option value="0.001">0.001</option>
+                    <option value="0.000001">0.000001</option>
+                    <option value="0.000000001">0.000000001</option>
+                </select><code>);</code>
+                </span>
+                <button type="submit" id="executor">Execute!</button>
+            </fieldset>
+            <img src="./img/sqrt_firebug.png" alt="Screenshot of Firebug" title="Screenshot of Firebug"/>
+        </form>
+        <pre class="left_column"><code>function sqrt(num, accuracy){
+    willow.enter();
+    
+    if(typeof accuracy === "undefined"){
+        accuracy = 0.01;
+        console.log("Accuracy parameter was unset, auto-set to default: ", accuracy);
+    }
+    
+    var result = num / 2.0;
+    var result2 = result*result;
+    while(Math.abs(result2 - num) &gt; accuracy){
+        console.log("Result: ",result, ", Result^2: ",result2,
+                    ", Target: ",num, " Accuracy: ",accuracy);
+
+        result = (result + num/result) / 2.0;
+        result2 = result*result;
+    }
+    
+    willow.exit(result);
+    return result;
+}</code></pre>
+    </body>
+</html>
